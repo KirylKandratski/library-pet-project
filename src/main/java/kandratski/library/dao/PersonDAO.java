@@ -17,16 +17,20 @@ public class PersonDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Person> findAll() {
+    public List<Person> getAll() {
         return jdbcTemplate.query("SELECT * FROM Person",
                 new BeanPropertyRowMapper<>(Person.class));
     }
 
 
-    public Person findById(int id) {
+    public Person getById(int id) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE person_id=?",
                         new Object[]{id},
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
+    }
+
+    public void create(Person person) {
+
     }
 }

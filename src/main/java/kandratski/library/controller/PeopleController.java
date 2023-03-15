@@ -19,15 +19,15 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String findAll(Model model) {
-        model.addAttribute("people", personDAO.findAll());
-        return "people/findAll";
+    public String getAll(Model model) {
+        model.addAttribute("people", personDAO.getAll());
+        return "getAll";
     }
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDAO.findById(id));
-        return "people/findById";
+    public String getById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDAO.getById(id));
+        return "getById";
     }
 
 
