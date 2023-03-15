@@ -31,6 +31,8 @@ public class PersonDAO {
     }
 
     public void create(Person person) {
-
+        jdbcTemplate.update("INSERT INTO Person (fullName, birthYear) VALUES (?, ?)",
+                person.getFullName(),
+                person.getBirthYear());
     }
 }
