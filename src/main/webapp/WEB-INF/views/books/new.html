@@ -6,16 +6,16 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/books}" th:object="${book}">
-  <label for="name">Enter Name: </label>
-  <input type="text" th:field="*{name}" id="name"/>
-  <br/>
-  <label for="author">Enter Author: </label>
-  <input type="text" th:field="*{author}" id="author"/>
-  <br/>
-  <label for="yearOfPublishing">Enter Year of publishing: </label>
-  <input type="text" th:field="*{yearOfPublishing}" id="yearOfPublishing"/>
-  <br/>
-  <input type="submit" value="Create!"/>
+    <label for="name">Enter Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="author">Enter Author: </label>
+    <input type="text" th:field="*{author}" id="author"/>
+    <br/>
+    <label for="yearOfPublishing">Enter Year of publishing: </label>
+    <input type="text" th:field="*{yearOfPublishing}" id="yearOfPublishing"/>
+    <br/>
+    <input type="submit" value="Create!"/>
 </form>
 </body>
 </html>

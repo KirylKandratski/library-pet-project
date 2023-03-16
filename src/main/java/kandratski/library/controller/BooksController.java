@@ -40,8 +40,8 @@ public class BooksController {
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.getById(id));
-        if (bookDAO.getById(id).getPerson_id() != null) {
-            model.addAttribute("person", libraryService.getPersonById(bookDAO.getById(id).getPerson_id()));
+        if (bookDAO.getById(id).getPersonId() != null) {
+            model.addAttribute("person", libraryService.getPersonById(bookDAO.getById(id).getPersonId()));
         } else {
             model.addAttribute("people", libraryService.getPersonList());
         }
@@ -69,8 +69,8 @@ public class BooksController {
 
     @PostMapping("/{id}/lend")
     public String lendBook(@PathVariable("id") int id, @ModelAttribute Book book) {
-        System.out.println(book.getPerson_id());
-        bookDAO.lendBook(id, book.getPerson_id());
+        System.out.println(book.getPersonId());
+        bookDAO.lendBook(id, book.getPersonId());
         return "redirect:/books";
     }
 

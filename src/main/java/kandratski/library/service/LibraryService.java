@@ -21,7 +21,7 @@ public class LibraryService {
         this.bookDAO = bookDAO;
     }
 
-    public List<Book> getBooksByPersonId(int personId) {
+    public List<Book> getBooksByPersonId(Integer personId) {
         return bookDAO.getBooksByPersonId(personId);
     }
 

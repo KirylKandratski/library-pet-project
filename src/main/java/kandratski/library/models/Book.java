@@ -2,7 +2,7 @@ package kandratski.library.models;
 
 public class Book {
 
-    private int book_id;
+    private int bookId;
 
     private String name;
 
@@ -11,26 +11,26 @@ public class Book {
     private int yearOfPublishing;
 
 
-    private Integer person_id;
+    private Integer personId;
 
 
     public Book() {
     }
 
-    public Book(int book_id, String name, String author, int yearOfPublishing, Integer personId) {
-        this.book_id = book_id;
+    public Book(int bookId, String name, String author, int yearOfPublishing, Integer personId) {
+        this.bookId = bookId;
         this.name = name;
         this.author = author;
         this.yearOfPublishing = yearOfPublishing;
-        person_id = personId;
+        this.personId = personId;
     }
 
-    public int getBook_id() {
-        return book_id;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getName() {
@@ -57,22 +57,22 @@ public class Book {
         this.yearOfPublishing = yearOfPublishing;
     }
 
-    public Integer getPerson_id() {
-        return person_id;
+    public Integer getPersonId() {
+        return personId;
     }
 
-    public void setPerson_id(Integer person_id) {
-        this.person_id = person_id;
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
     }
 
     @Override
     public String toString() {
         return "Book{" +
-               "book_id=" + book_id +
+               "book_id=" + bookId +
                ", name='" + name + '\'' +
                ", author='" + author + '\'' +
                ", yearOfPublishing=" + yearOfPublishing +
-               ", person_id=" + person_id +
+               ", person_id=" + personId +
                '}';
     }
 

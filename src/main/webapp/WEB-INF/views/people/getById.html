@@ -21,13 +21,13 @@
 <br/>
 <hr/>
 
-<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getPerson_id()})}">
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getPersonId()})}">
     <input type="submit" value="Edit"/>
 </form>
 
 <br/>
 
-<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}">
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPersonId()})}">
     <input type="submit" value="Delete"/>
 </form>
 

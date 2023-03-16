@@ -23,7 +23,7 @@ public class BookDAO {
                 book.getName(),
                 book.getAuthor(),
                 book.getYearOfPublishing(),
-                book.getPerson_id());
+                book.getPersonId());
     }
 
     public List<Book> getAll() {
@@ -43,7 +43,7 @@ public class BookDAO {
                 updatedBook.getName(),
                 updatedBook.getAuthor(),
                 updatedBook.getYearOfPublishing(),
-                updatedBook.getPerson_id(),
+                updatedBook.getPersonId(),
                 id);
     }
 
