@@ -1,6 +1,7 @@
 package kandratski.library.dao;
 
 import kandratski.library.models.Book;
+import kandratski.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +17,13 @@ public class BookDAO {
     @Autowired
     public BookDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void create(Book book) {
+        jdbcTemplate.update("INSERT INTO Book (name, author, year_of_publishing) VALUES (?, ?, ?)",
+                book.getName(),
+                book.getAuthor(),
+                book.getYearOfPublishing());
     }
 
     public List<Book> getAll() {
