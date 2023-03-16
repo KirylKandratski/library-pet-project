@@ -7,6 +7,17 @@
 <body>
 <p th:text="${person.getFullName() + ', ' + person.getBirthYear()}">VALUE</p>
 
+<div th:if="${!bookList.isEmpty()}">
+    <li th:each="book : ${bookList}"
+        th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublishing()}">Value
+    </li>
+</div>
+
+<div th:unless="${!bookList.isEmpty()}">
+    <p>The person hasn't picked up any books yet</p>
+</div>
+
+
 <br/>
 <hr/>
 

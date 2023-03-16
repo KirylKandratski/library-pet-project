@@ -2,7 +2,7 @@ package kandratski.library.controller;
 
 import kandratski.library.dao.BookDAO;
 import kandratski.library.models.Book;
-import kandratski.library.models.Person;
+import kandratski.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/books")
 public class BooksController {
     private final BookDAO bookDAO;
+    private final LibraryService libraryService;
 
     @Autowired
-    public BooksController(BookDAO bookDAO) {
+    public BooksController(BookDAO bookDAO, LibraryService libraryService) {
         this.bookDAO = bookDAO;
+        this.libraryService = libraryService;
     }
 
     @GetMapping("/new")
@@ -38,6 +40,12 @@ public class BooksController {
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.getById(id));
+        if (bookDAO.getById(id).getPerson_id() != null) {
+            model.addAttribute("person", libraryService.getPersonById(bookDAO.getById(id).getPerson_id()));
+        } else {
+            model.addAttribute("people", libraryService.getPersonList());
+        }
+
         return "books/getById";
     }
 
@@ -50,6 +58,19 @@ public class BooksController {
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute Book book) {
         bookDAO.update(id, book);
+        return "redirect:/books";
+    }
+
+    @PostMapping("/{id}/return")
+    public String returnBook(@PathVariable("id") int id) {
+        bookDAO.returnBook(id);
+        return "redirect:/books";
+    }
+
+    @PostMapping("/{id}/lend")
+    public String lendBook(@PathVariable("id") int id, @ModelAttribute Book book) {
+        System.out.println(book.getPerson_id());
+        bookDAO.lendBook(id, book.getPerson_id());
         return "redirect:/books";
     }
 

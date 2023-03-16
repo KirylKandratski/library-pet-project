@@ -10,14 +10,19 @@ public class Book {
 
     private int yearOfPublishing;
 
+
+    private Integer person_id;
+
+
     public Book() {
     }
 
-    public Book(int book_id, String name, String author, int yearOfPublishing) {
+    public Book(int book_id, String name, String author, int yearOfPublishing, Integer personId) {
         this.book_id = book_id;
         this.name = name;
         this.author = author;
         this.yearOfPublishing = yearOfPublishing;
+        person_id = personId;
     }
 
     public int getBook_id() {
@@ -52,6 +57,14 @@ public class Book {
         this.yearOfPublishing = yearOfPublishing;
     }
 
+    public Integer getPerson_id() {
+        return person_id;
+    }
+
+    public void setPerson_id(Integer person_id) {
+        this.person_id = person_id;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -59,6 +72,8 @@ public class Book {
                ", name='" + name + '\'' +
                ", author='" + author + '\'' +
                ", yearOfPublishing=" + yearOfPublishing +
+               ", person_id=" + person_id +
                '}';
     }
+
 }

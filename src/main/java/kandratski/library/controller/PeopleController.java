@@ -2,6 +2,7 @@ package kandratski.library.controller;
 
 import kandratski.library.dao.PersonDAO;
 import kandratski.library.models.Person;
+import kandratski.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonDAO personDAO;
+    private final LibraryService libraryService;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, LibraryService libraryService) {
         this.personDAO = personDAO;
+        this.libraryService = libraryService;
     }
 
     @GetMapping("/new")
@@ -37,6 +40,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.getById(id));
+        model.addAttribute("bookList", libraryService.getBooksByPersonId(id));
         return "people/getById";
     }
 
