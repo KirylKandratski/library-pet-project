@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -34,6 +35,13 @@ public class PersonDAO {
                         new Object[]{id},
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
+    }
+
+    public void update(int id, Person updatedPerson) {
+        jdbcTemplate.update("UPDATE Person SET fullname=?, birthyear=? WHERE person_id=?",
+                updatedPerson.getFullName(),
+                updatedPerson.getBirthYear(),
+                id);
     }
 
     public void delete(int id) {
