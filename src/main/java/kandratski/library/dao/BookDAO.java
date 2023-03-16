@@ -1,7 +1,6 @@
 package kandratski.library.dao;
 
 import kandratski.library.models.Book;
-import kandratski.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,5 +21,11 @@ public class BookDAO {
     public List<Book> getAll() {
         return jdbcTemplate.query("SELECT * FROM Book",
                 new BeanPropertyRowMapper<>(Book.class));
+    }
+    public Book getById(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE book_id=?",
+                        new Object[]{id},
+                        new BeanPropertyRowMapper<>(Book.class))
+                .stream().findAny().orElse(null);
     }
 }
