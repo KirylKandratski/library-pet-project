@@ -19,7 +19,7 @@ public class PersonDAO {
     }
 
     public void create(Person person) {
-        jdbcTemplate.update("INSERT INTO Person (fullName, birthYear) VALUES (?, ?)",
+        jdbcTemplate.update("INSERT INTO Person (full_name, birth_year) VALUES (?, ?)",
                 person.getFullName(),
                 person.getBirthYear());
     }
@@ -38,7 +38,7 @@ public class PersonDAO {
     }
 
     public void update(int id, Person updatedPerson) {
-        jdbcTemplate.update("UPDATE Person SET fullname=?, birthyear=? WHERE person_id=?",
+        jdbcTemplate.update("UPDATE Person SET full_name=?, birth_year=? WHERE person_id=?",
                 updatedPerson.getFullName(),
                 updatedPerson.getBirthYear(),
                 id);
