@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Update person</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
 <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getPersonId()})}" th:object="${person}">
     <label for="fullName">Enter Full name: </label>
     <input type="text" th:field="*{fullName}" id="fullName"/>
+    <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error"></span>
     <br/>
     <label for="birthYear">Enter Birth year: </label>
     <input type="text" th:field="*{birthYear}" id="birthYear"/>
+    <span th:if="${#fields.hasErrors('birthYear')}" th:errors="*{birthYear}" class="error"></span>
     <br/>
     <input type="submit" value="Update!"/>
 </form>
