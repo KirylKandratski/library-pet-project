@@ -6,7 +6,10 @@ import kandratski.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/books")
@@ -26,7 +29,11 @@ public class BooksController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("book") Book book) {
+    public String create(@ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "books/new";
+        }
         bookDAO.create(book);
         return "redirect:/books";
     }
@@ -56,7 +63,11 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute Book book) {
+    public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "books/edit";
+        }
         bookDAO.update(id, book);
         return "redirect:/books";
     }
@@ -69,7 +80,6 @@ public class BooksController {
 
     @PostMapping("/{id}/lend")
     public String lendBook(@PathVariable("id") int id, @ModelAttribute Book book) {
-        System.out.println(book.getPersonId());
         bookDAO.lendBook(id, book.getPersonId());
         return "redirect:/books";
     }
@@ -77,6 +87,6 @@ public class BooksController {
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         bookDAO.delete(id);
-        return "redirect:/people";
+        return "redirect:/books";
     }
 }
