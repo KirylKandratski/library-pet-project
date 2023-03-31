@@ -1,18 +1,33 @@
-package kandratski.library.models;
+package kandratski.library.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "person")
 public class Person {
 
+    @Id
+    @Column(name = "person_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int personId;
+
     @NotBlank(message = "Author cannot be blank")
     @Size(min = 2, max = 30, message = "Author name must be between 2 and 30 characters")
+    @Column(name = "full_name")
     private String fullName;
+
     @Min(value = 1910, message = "Year of publishing should not be less than 1910")
     @Max(value = 2020, message = "Year of publishing should not be more than 2020")
+    @Column(name = "birth_year")
     private int birthYear;
 
     public Person() {

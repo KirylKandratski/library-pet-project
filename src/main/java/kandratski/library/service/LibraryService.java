@@ -1,9 +1,7 @@
 package kandratski.library.service;
 
-import kandratski.library.dao.BookDAO;
-import kandratski.library.dao.PersonDAO;
-import kandratski.library.models.Book;
-import kandratski.library.models.Person;
+import kandratski.library.entity.Book;
+import kandratski.library.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,24 +10,25 @@ import java.util.List;
 @Service
 public class LibraryService {
 
-    private final PersonDAO personDAO;
-    private final BookDAO bookDAO;
+    private final BooksService booksService;
+    private final PeopleService peopleService;
 
     @Autowired
-    public LibraryService(PersonDAO personDAO, BookDAO bookDAO) {
-        this.personDAO = personDAO;
-        this.bookDAO = bookDAO;
+    public LibraryService(BooksService booksService, PeopleService peopleService) {
+        this.booksService = booksService;
+        this.peopleService = peopleService;
     }
 
     public List<Book> getBooksByPersonId(Integer personId) {
-        return bookDAO.getBooksByPersonId(personId);
+        return booksService.getBooksByPersonId(personId);
     }
 
     public Person getPersonById(int personId) {
-        return personDAO.getById(personId);
+        return peopleService.findById(personId);
     }
 
     public List<Person> getPersonList() {
-        return personDAO.getAll();
+
+        return peopleService.findAll();
     }
 }

@@ -1,26 +1,32 @@
 package kandratski.library.controller;
 
-import kandratski.library.dao.BookDAO;
-import kandratski.library.models.Book;
+import kandratski.library.entity.Book;
+import kandratski.library.service.BooksService;
 import kandratski.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/books")
 public class BooksController {
-    private final BookDAO bookDAO;
     private final LibraryService libraryService;
+    private final BooksService booksService;
 
     @Autowired
-    public BooksController(BookDAO bookDAO, LibraryService libraryService) {
-        this.bookDAO = bookDAO;
+    public BooksController(LibraryService libraryService, BooksService booksService) {
         this.libraryService = libraryService;
+        this.booksService = booksService;
     }
 
     @GetMapping("/new")
@@ -31,24 +37,27 @@ public class BooksController {
     @PostMapping()
     public String create(@ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "books/new";
         }
-        bookDAO.create(book);
+        booksService.save(book);
         return "redirect:/books";
     }
 
     @GetMapping()
     public String getAll(Model model) {
-        model.addAttribute("books", bookDAO.getAll());
+
+        model.addAttribute("books", booksService.findAll());
         return "books/getAll";
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("book", bookDAO.getById(id));
-        if (bookDAO.getById(id).getPersonId() != null) {
-            model.addAttribute("person", libraryService.getPersonById(bookDAO.getById(id).getPersonId()));
+
+        model.addAttribute("book", booksService.findById(id));
+
+        if (booksService.findById(id).getPersonId() != null) {
+            model.addAttribute("person", libraryService.getPersonById(booksService.findById(id).getPersonId()));
         } else {
             model.addAttribute("people", libraryService.getPersonList());
         }
@@ -58,35 +67,40 @@ public class BooksController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("book", bookDAO.getById(id));
+
+        model.addAttribute("book", booksService.findById(id));
         return "books/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("book") @Valid Book book,
                          BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "books/edit";
         }
-        bookDAO.update(id, book);
+
+        booksService.update(id, book);
         return "redirect:/books";
     }
 
     @PostMapping("/{id}/return")
     public String returnBook(@PathVariable("id") int id) {
-        bookDAO.returnBook(id);
+
+        booksService.returnBook(id);
         return "redirect:/books";
     }
 
     @PostMapping("/{id}/lend")
     public String lendBook(@PathVariable("id") int id, @ModelAttribute Book book) {
-        bookDAO.lendBook(id, book.getPersonId());
+
+        booksService.lendBook(book.getPersonId(), id);
         return "redirect:/books";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        bookDAO.delete(id);
+
+        booksService.delete(id);
         return "redirect:/books";
     }
 }
