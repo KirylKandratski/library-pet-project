@@ -31,6 +31,10 @@ public class BooksService {
         return bookById.orElse(null);
     }
 
+    public Book findByName(String searchTerm) {
+        return booksRepository.findFirstByNameContains(searchTerm);
+    }
+
     @Transactional
     public void save(Book book) {
         booksRepository.save(book);

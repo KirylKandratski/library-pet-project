@@ -117,4 +117,22 @@ public class BooksController {
         booksService.delete(id);
         return "redirect:/books";
     }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(name = "searchTerm", defaultValue = "") String searchTerm,
+                         Model model) {
+
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return "books/search";
+        }
+
+        Book book = booksService.findByName(searchTerm);
+        model.addAttribute("book", book);
+
+        if (book.getPersonId() != null) {
+            model.addAttribute("person", libraryService.getPersonById(book.getPersonId()));
+        }
+
+        return "books/search";
+    }
 }

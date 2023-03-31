@@ -9,10 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BooksRepository extends JpaRepository<Book, Integer> {
     List<Book> findBooksByPersonId(Integer personId);
+
+    Book findFirstByNameContains(String searchTerm);
 
     @Override
     Page<Book> findAll(Pageable pageable);
