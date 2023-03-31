@@ -3,6 +3,8 @@ package kandratski.library.service;
 import kandratski.library.entity.Book;
 import kandratski.library.repository.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +21,10 @@ public class BooksService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Book> findAll() {
-        return booksRepository.findAll();
+    public Page<Book> findAll(PageRequest pageRequest) {
+        return booksRepository.findAll(pageRequest);
     }
+
 
     public Book findById(int id) {
         Optional<Book> bookById = booksRepository.findById(id);
@@ -57,7 +60,6 @@ public class BooksService {
     public void lendBook(Integer personId, int id) {
         booksRepository.lendBook(personId, id);
     }
-
 
 
 }

@@ -6,9 +6,29 @@
 </head>
 <body>
 
+<div>
+    <form th:action="@{/books}" method="get">
+        <label for="page">Page:</label>
+        <input type="number" id="page" name="page" th:value="${currentPage}" min="0">
+        <label for="size">Size:</label>
+        <input type="number" id="size" name="size" th:value="${pageSize}" min="1">
+        <label for="sort">Sort by:</label>
+        <select id="sort" name="sort" th:value="${sort}">
+            <option value="name" th:selected="${sort=='name'}">Name</option>
+            <option value="author" th:selected="${sort=='author'}">Author</option>
+            <option value="yearOfPublishing" th:selected="${sort=='yearOfPublishing'}">Year of publishing</option>
+        </select>
+        <button type="submit">Go</button>
+    </form>
+</div>
+
 <div th:each="book : ${books}">
     <a th:href="@{/books/{id}(id=${book.getBookId()})}"
        th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublishing()}">book</a>
+</div>
+
+<div>
+    <p>Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span></p>
 </div>
 
 <br/>
