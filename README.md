@@ -1,12 +1,12 @@
 # Library Pet Project
 
-This project is a simple web application for a library, written in Java using Spring Framework and Thymeleaf. It allows users to add, edit, delete, and view books and readers in the library.
+This project is a simple web application for a library, written in Java using Spring Framework, Spring Data JPA, and Thymeleaf. It allows users to add, edit, delete, and view books and readers in the library.
 
 ## Project Features
 
 * Add, edit, delete, and view books and readers
 * Use Hibernate Validator for data validation
-* Use Spring JDBC and PostgreSQL for data storage
+* Use Spring Data JPA and PostgreSQL for data storage
 * Use Thymeleaf for page rendering
 
 ## Installation Requirements
