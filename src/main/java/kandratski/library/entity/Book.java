@@ -10,6 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "book")
@@ -30,21 +31,21 @@ public class Book {
     @Max(value = 2023, message = "Year of publishing should not be more than 2023")
     @Column(name = "year_of_publishing")
     private int yearOfPublishing;
-
-
     @Column(name = "person_id")
     private Integer personId;
-
+    @Column(name = "loan_date")
+    private Date loanDate;
 
     public Book() {
     }
 
-    public Book(int bookId, String name, String author, int yearOfPublishing, Integer personId) {
+    public Book(int bookId, String name, String author, int yearOfPublishing, Integer personId, Date loanDate) {
         this.bookId = bookId;
         this.name = name;
         this.author = author;
         this.yearOfPublishing = yearOfPublishing;
         this.personId = personId;
+        this.loanDate = loanDate;
     }
 
     public int getBookId() {
@@ -87,14 +88,23 @@ public class Book {
         this.personId = personId;
     }
 
+    public Date getLoanDate() {
+        return loanDate;
+    }
+
+    public void setLoanDate(Date loadDate) {
+        this.loanDate = loadDate;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
-               "book_id=" + bookId +
+               "bookId=" + bookId +
                ", name='" + name + '\'' +
                ", author='" + author + '\'' +
                ", yearOfPublishing=" + yearOfPublishing +
-               ", person_id=" + personId +
+               ", personId=" + personId +
+               ", loadDate=" + loanDate +
                '}';
     }
 

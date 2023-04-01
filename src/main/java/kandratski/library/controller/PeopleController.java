@@ -58,7 +58,7 @@ public class PeopleController {
     public String getById(@PathVariable("id") int id, Model model) {
 
         model.addAttribute("person", peopleService.findById(id));
-        model.addAttribute("bookList", libraryService.getBooksByPersonId(id));
+        model.addAttribute("bookDTOList", libraryService.getBooksByPersonId(id));
         return "people/getById";
     }
 

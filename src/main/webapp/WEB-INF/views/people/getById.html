@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Person</title>
+    <style>
+        .overdue {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <p th:text="${person.getFullName() + ', ' + person.getBirthYear()}">VALUE</p>
 
-<div th:if="${!bookList.isEmpty()}">
-    <li th:each="book : ${bookList}"
-        th:text="${book.getName() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublishing()}">Value
+<div th:if="${!bookDTOList.isEmpty()}">
+    <li th:each="bookDTO : ${bookDTOList}"
+        th:class="${bookDTO.overdue} ? 'overdue' : ''"
+        th:text="${bookDTO.getName() + ', ' + bookDTO.getAuthor() + ', ' + bookDTO.getYearOfPublishing()}">Value
     </li>
 </div>
 
-<div th:unless="${!bookList.isEmpty()}">
+<div th:unless="${!bookDTOList.isEmpty()}">
     <p>The person hasn't picked up any books yet</p>
 </div>
 
